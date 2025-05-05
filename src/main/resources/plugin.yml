@@ -1,0 +1,5 @@
+name: Quiver
+version: '1.0.0'
+main: de.rayzs.quiver.Quiver
+api-version: '1.21'
+authors: [ Rayzs_YT ]
