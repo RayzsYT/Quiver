@@ -104,7 +104,6 @@ public class QuiverInteractionListener implements Listener {
         InventoryAction action = event.getAction();
         String actionName = action.name();
 
-        Quiver.QuiverItem inventoryQuiver = Quiver.getOpenQuiver(player);
         Quiver.QuiverItem quiver = Quiver.getQuiver(clickingItem);
         Quiver.QuiverItem openQuiver = Quiver.getOpenQuiver(player);
 
@@ -116,6 +115,7 @@ public class QuiverInteractionListener implements Listener {
         if (quiver != null) {
             
             if (inQuiverInventory) {
+                System.out.println(1);
                 event.setCancelled(true);
                 return;
             }
@@ -124,6 +124,7 @@ public class QuiverInteractionListener implements Listener {
                 player.closeInventory();
                 quiver.openInventory(player);
 
+                System.out.println(2);
                 event.setCancelled(true);
                 return;
             }
@@ -131,6 +132,7 @@ public class QuiverInteractionListener implements Listener {
             if (holdingItem != null) {
                 
                 if (!holdingItemIsArrow) {
+                    System.out.println(3);
                     event.setCancelled(true);
                     return;
                 }
@@ -139,6 +141,7 @@ public class QuiverInteractionListener implements Listener {
                 quiver.update(clickedInventory, event.getSlot());
                 
                 player.updateInventory();
+                System.out.println(4);
                 event.setCancelled(true);
                 return;
             }
@@ -149,7 +152,8 @@ public class QuiverInteractionListener implements Listener {
 
         // If holding item is a quiver
         quiver = Quiver.getQuiver(holdingItem);
-        if (quiver != null) {
+        if (openQuiver != null && quiver != null) {
+            System.out.println(5);
             event.setCancelled(true);
             return;
         }
@@ -157,6 +161,8 @@ public class QuiverInteractionListener implements Listener {
         // If inventory is quiver inventory
         if (openQuiver == null || openQuiver.getInventory() == null)
             return;
+
+        System.out.println(6);
 
         Inventory openQuiverInventory = openQuiver.getInventory();
         

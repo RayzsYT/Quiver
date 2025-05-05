@@ -13,7 +13,7 @@ public class QuiverArrowPickupListener implements Listener {
 
     @EventHandler
     public void onPlayerPickupArrow(PlayerPickupArrowEvent event) {
-        if (event.isCancelled()())
+        if (event.isCancelled())
             return;
 
         Player player = event.getPlayer();

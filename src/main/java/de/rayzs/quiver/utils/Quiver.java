@@ -55,16 +55,25 @@ public class Quiver {
     }
 
     public static QuiverItem getQuiver(ItemStack stack) {
-        if (stack == null)
+        if (stack == null || !stack.getType().name().contains("BUNDLE"))
             return null;
 
         if (QUIVERS.containsKey(stack))
             return QUIVERS.get(stack);
 
+        if (!stack.hasItemMeta())
+            return null;
+
+        ItemMeta meta = stack.getItemMeta();
+
+        if (meta.getPersistentDataContainer() == null)
+            return null;
+
+        if (!meta.getPersistentDataContainer().has(QUIVER_DATA))
+            return null;
 
         QuiverItem quiver = new QuiverItem(stack);
         QUIVERS.put(stack, quiver);
-
         return quiver;
     }
 
@@ -290,8 +299,11 @@ public class Quiver {
             ItemStack[] arrows = turnStringToData(meta.getPersistentDataContainer().get(QUIVER_DATA, PersistentDataType.STRING));
 
             int newAmount = 0;
-            for (ItemStack arrow : arrows) {
-                newAmount += arrow.getAmount();
+
+            if (arrows != null) {
+                for (ItemStack arrow : arrows) {
+                    newAmount += arrow.getAmount();
+                }
             }
 
             this.amount = newAmount;
@@ -301,7 +313,8 @@ public class Quiver {
                                 : DEFAULT_ITEM_NAME;
 
             inventory = Bukkit.createInventory(null, InventoryType.HOPPER, name);
-            inventory.setContents(arrows);
+            if (arrows != null)
+                inventory.setContents(arrows);
         }
 
     }

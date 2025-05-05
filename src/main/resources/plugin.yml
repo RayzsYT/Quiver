@@ -1,5 +1,5 @@
 name: Quiver
 version: '1.0.0'
-main: de.rayzs.quiver.Quiver
+main: de.rayzs.quiver.plugin.QuiverPlugin
 api-version: '1.21'
 authors: [ Rayzs_YT ]
